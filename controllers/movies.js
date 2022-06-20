@@ -75,10 +75,10 @@ const updateMovie = async(req, res) => {
 
 const deleteMovie = async(req, res) => {
   try{
-    const { uid } = req.params
+    // const { uid } = req.params
+    const { uid } = req.body
 
     const data = await Movie.deleteOne({ _id: uid });
-
 
     return res.status(200).json({
       mensaje: 'Película eliminada exitosamente.'
