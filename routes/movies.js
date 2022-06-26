@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { createMovie, listMovies, updateMovie, deleteMovie } = require('../controllers/movies')
+const { createMovie, listMovies, updateMovie, deleteMovie, lastMovie } = require('../controllers/movies')
 const { jwtAdmValidator } = require('../middleware/jwtAdmValidator')
 
 router
@@ -10,5 +10,6 @@ router
   .put('/edit', jwtAdmValidator, updateMovie)
   // .get('/delete/:uid', deleteMovie)
   .delete('/delete', jwtAdmValidator, deleteMovie)
+  .get('/last', lastMovie)
 
 module.exports = router;

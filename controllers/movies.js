@@ -90,4 +90,17 @@ const deleteMovie = async(req, res) => {
   }
 }
 
-module.exports = { createMovie, listMovies, updateMovie, deleteMovie }
+const lastMovie = async(req, res) => {
+  try{
+    const movie = await Movie.find().sort({"lanzamiento": -1}).limit(1)
+    return res.status(200).json({
+      movie
+    });
+  }  catch (err) {
+    return res.status(404).json({
+      mensaje: err
+    });
+  }
+}
+
+module.exports = { createMovie, listMovies, updateMovie, deleteMovie, lastMovie }
