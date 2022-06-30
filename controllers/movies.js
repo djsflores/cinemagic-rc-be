@@ -32,19 +32,6 @@ const createMovie = async(req, res) => {
   }
 }
 
-const listMovies = async(req, res) => {
-  try{
-    const movies = await Movie.find({})
-    return res.status(200).json({
-      movies
-    });
-  }  catch (err) {
-    return res.status(404).json({
-      mensaje: err
-    });
-  }
-}
-
 const updateMovie = async(req, res) => {
   try {
     const { uid, titulo, sinopsis, poster, lanzamiento, genero, fondo } = req.body
@@ -90,6 +77,19 @@ const deleteMovie = async(req, res) => {
   }
 }
 
+const listMovies = async(req, res) => {
+  try{
+    const movies = await Movie.find({})
+    return res.status(200).json({
+      movies
+    });
+  }  catch (err) {
+    return res.status(404).json({
+      mensaje: err
+    });
+  }
+}
+
 const lastMovie = async(req, res) => {
   try{
     const movie = await Movie.find().sort({"lanzamiento": -1}).limit(1)
@@ -103,4 +103,51 @@ const lastMovie = async(req, res) => {
   }
 }
 
-module.exports = { createMovie, listMovies, updateMovie, deleteMovie, lastMovie }
+const lastTwoMovies = async(req, res) => {
+  try{
+    const movie = await Movie.find().sort({"lanzamiento": -1}).limit(2)
+    return res.status(200).json({
+      movie
+    });
+  }  catch (err) {
+    return res.status(404).json({
+      mensaje: err
+    });
+  }
+}
+
+const latestMovies = async(req, res) => {
+  const { elementos } = req.body
+  try{
+    const movies = await Movie.find().sort({"lanzamiento": -1}).limit(elementos)
+    return res.status(200).json({
+      movies
+    });
+  }  catch (err) {
+    return res.status(404).json({
+      mensaje: err
+    });
+  }
+}
+
+const latestMoviesByGenre = async(req, res) => {
+  const { genero, elementos } = req.body
+  // const movies;
+  let movies;
+  try{
+    if(genero === 'all'){
+      movies = await Movie.find({}).sort({"lanzamiento": -1}).limit(elementos)
+    } else {
+      movies = await Movie.find({genero: genero}).sort({"lanzamiento": -1}).limit(elementos)
+    }
+    return res.status(200).json({
+      movies
+    });
+  }  catch (err) {
+    return res.status(404).json({
+      mensaje: err
+    });
+  }
+}
+
+module.exports = { createMovie, updateMovie, deleteMovie, listMovies, lastMovie, lastTwoMovies, latestMovies, latestMoviesByGenre }
