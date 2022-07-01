@@ -12,9 +12,9 @@ const jwtValidator = async(req, res, next) =>{
     }
   } catch(error){
     res.json({
-      mensaje: 'No autorizado'
+      estado: 401,
+      mensaje: 'Cliente NO autorizado'
     })
-    
   }
 
 } 

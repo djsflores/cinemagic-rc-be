@@ -12,9 +12,9 @@ const jwtAdmValidator = async(req, res, next) =>{
     }
   } catch(error){
     res.json({
-      mensaje: 'No autorizado'
+      estado: 401,
+      mensaje: 'Admin NO autorizado'
     })
-    
   }
 
 } 
