@@ -1,12 +1,12 @@
 require('dotenv').config()
-const jwt = require('jsonwebtoken')
 
+const jwt = require('jsonwebtoken')
 const secretKey = process.env.SECRET_KEY
 
 const jwtValidator = async(req, res, next) =>{
-  const { accessToken } = req.body
+  const { authorization } = req.headers
   try{
-    const verify = jwt.verify(accessToken, secretKey)
+    const verify = jwt.verify(authorization, secretKey)
     if(verify){
       return next()
     }
@@ -16,6 +16,6 @@ const jwtValidator = async(req, res, next) =>{
       mensaje: 'Cliente NO autorizado'
     })
   }
+}
 
-} 
 module.exports = { jwtValidator }

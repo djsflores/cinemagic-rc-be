@@ -11,7 +11,8 @@ router
   .put('/edit', jwtAdmValidator, updateMovie)
   // .get('/delete/:uid', deleteMovie)
   .delete('/delete', jwtAdmValidator, deleteMovie)
-  .get('/list', listMovies)
+  // .get('/list', listMovies)
+  .post('/list', jwtAdmValidator, listMovies)
   // para cualquier visitante
   .get('/last', lastMovie)
   .get('/last2', lastTwoMovies)
