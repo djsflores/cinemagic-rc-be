@@ -6,7 +6,8 @@ const movie = new Schema({
   poster : String, 
   lanzamiento : Date, 
   genero : String, 
-  fondo : String
+  fondo : String, 
+  trailer : String
 });
 
 module.exports = model('Movies', movie);

@@ -1,12 +1,10 @@
 const Movie = require('../models/Movies');
 
 const createMovie = async(req, res) => {
-  const { titulo, sinopsis, poster, lanzamiento, genero, fondo } = req.body
-
+  const { titulo, sinopsis, poster, lanzamiento, genero, fondo, trailer } = req.body
   const regex = new RegExp(titulo, 'i')
   const result = await Movie.find({ titulo: {$regex: regex} })
   if(result.length === 0){
-    
     try{
       const newMovie = new Movie({
         titulo, 
@@ -14,7 +12,8 @@ const createMovie = async(req, res) => {
         poster, 
         lanzamiento, 
         genero, 
-        fondo
+        fondo,
+        trailer
       });
       await newMovie.save();
       return res.status(200).json({
@@ -34,8 +33,7 @@ const createMovie = async(req, res) => {
 
 const updateMovie = async(req, res) => {
   try {
-    const { uid, titulo, sinopsis, poster, lanzamiento, genero, fondo } = req.body
-
+    const { uid, titulo, sinopsis, poster, lanzamiento, genero, fondo, trailer } = req.body
     const data = await Movie.updateOne(
       { _id: uid },
       {
@@ -45,14 +43,14 @@ const updateMovie = async(req, res) => {
           poster, 
           lanzamiento, 
           genero, 
-          fondo
+          fondo,
+          trailer
         },
       }
     );
     return res.status(200).json({
       mensaje: 'Película actualizada exitosamente.'
     });
-
   } catch (err) {
     return res.status(404).json({
       mensaje: err
@@ -64,9 +62,7 @@ const deleteMovie = async(req, res) => {
   try{
     // const { uid } = req.params
     const { uid } = req.body
-
     const data = await Movie.deleteOne({ _id: uid });
-
     return res.status(200).json({
       mensaje: 'Película eliminada exitosamente.'
     });
