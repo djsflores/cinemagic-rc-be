@@ -1,6 +1,6 @@
 require('dotenv').config()
-const jwt = require('jsonwebtoken')
 
+const jwt = require('jsonwebtoken')
 const secretKey = process.env.SECRET_ADM_KEY
 
 const jwtAdmValidator = async(req, res, next) =>{
@@ -16,6 +16,6 @@ const jwtAdmValidator = async(req, res, next) =>{
       mensaje: 'Admin NO autorizado'
     })
   }
+}
 
-} 
 module.exports = { jwtAdmValidator }
